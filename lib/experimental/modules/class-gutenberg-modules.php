@@ -394,7 +394,7 @@ function gutenberg_register_block_module_handle( $metadata, $field_name, $index 
 		$module_id,
 		$module_uri,
 		$module_dependencies,
-		isset( $module_asset['version'] ) ? $module_asset['version'] : false,
+		isset( $module_asset['version'] ) ? $module_asset['version'] : false
 	);
 
 	// @todo This in_array may not work with module_dependencies.
@@ -443,4 +443,3 @@ function gutenberg_generate_block_asset_module_id( $block_name, $field_name, $in
 	}
 	return $asset_handle;
 }
-
