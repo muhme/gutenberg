@@ -66,9 +66,7 @@ function defaultRequestToExternal( request ) {
  *   to ignore the request. Return `string` to map the request to an external. This may simply be returning the request, e.g. `@wordpress/interactivity` maps to the external `@wordpress/interactivity`.
  */
 function defaultRequestToExternalModule( request ) {
-	if ( request === '@wordpress/interactivity' ) {
-		return true;
-	}
+	return request === '@wordpress/interactivity';
 }
 
 /**
