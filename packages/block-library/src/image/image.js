@@ -423,6 +423,7 @@ export default function Image( {
 						linkTarget={ linkTarget }
 						linkClass={ linkClass }
 						rel={ rel }
+						lightboxEnabled={ lightbox?.enabled }
 					/>
 				) }
 				{ allowCrop && (
