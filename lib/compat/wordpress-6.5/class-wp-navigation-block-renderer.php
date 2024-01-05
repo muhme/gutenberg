@@ -376,8 +376,24 @@ class WP_Navigation_Block_Renderer {
 		return implode( ' ', $classes );
 	}
 
+	/**
+	 * Returns whether or not the navigation is always overlay.
+	 *
+	 * @param array $attributes The block attributes.
+	 * @return bool Returns whether or not the navigation is always overlay.
+	 */
 	private static function is_always_overlay( $attributes ) {
 		return isset( $attributes['overlayMenu'] ) && 'always' === $attributes['overlayMenu'];
+	}
+
+	/**
+	 * Returns whether or not the navigation is collapsable.
+	 *
+	 * @param array $attributes The block attributes.
+	 * @return bool Returns whether or not the navigation is collapsable.
+	 */
+	private static function is_collapsable( $attributes ) {
+		return isset( $attributes['overlayMenu'] ) && in_array( $attributes['overlayMenu'], array( 'mobile', 'auto' ), true );
 	}
 
 	/**
@@ -533,6 +549,7 @@ class WP_Navigation_Block_Renderer {
 				'type'            => 'overlay',
 				'roleAttribute'   => '',
 				'ariaLabel'       => __( 'Menu' ),
+				'overlayMenu'     => $attributes['overlayMenu'],
 			),
 			JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP
 		);
@@ -543,10 +560,17 @@ class WP_Navigation_Block_Renderer {
 
 		// When the navigation overlayMenu attribute is set to "always"
 		// we don't need to use JavaScript to collapse the menu as we set the class manually.
-		if ( ! static::is_always_overlay( $attributes ) ) {
-			$nav_element_directives .= 'data-wp-init="callbacks.initNav"';
+		if ( static::is_collapsable( $attributes ) ) {
 			$nav_element_directives .= ' '; // space separator
 			$nav_element_directives .= 'data-wp-class--is-collapsed="context.isCollapsed"';
+		}
+		if ( isset( $attributes['overlayMenu'] ) && $attributes['overlayMenu'] === 'mobile' ) {
+			$nav_element_directives .= ' '; // space separator
+			$nav_element_directives .= 'data-wp-init="callbacks.initMobileNav"';
+		}
+		if ( isset( $attributes['overlayMenu'] ) && $attributes['overlayMenu'] === 'auto' ) {
+			$nav_element_directives .= ' '; // space separator
+			$nav_element_directives .= 'data-wp-init="callbacks.initAutoNav"';
 		}
 
 		return $nav_element_directives;
