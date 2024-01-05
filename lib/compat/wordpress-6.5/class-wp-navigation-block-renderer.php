@@ -564,11 +564,11 @@ class WP_Navigation_Block_Renderer {
 			$nav_element_directives .= ' '; // space separator
 			$nav_element_directives .= 'data-wp-class--is-collapsed="context.isCollapsed"';
 		}
-		if ( isset( $attributes['overlayMenu'] ) && $attributes['overlayMenu'] === 'mobile' ) {
+		if ( isset( $attributes['overlayMenu'] ) && 'mobile' === $attributes['overlayMenu'] ) {
 			$nav_element_directives .= ' '; // space separator
 			$nav_element_directives .= 'data-wp-init="callbacks.initMobileNav"';
 		}
-		if ( isset( $attributes['overlayMenu'] ) && $attributes['overlayMenu'] === 'auto' ) {
+		if ( isset( $attributes['overlayMenu'] ) && 'auto' === $attributes['overlayMenu'] ) {
 			$nav_element_directives .= ' '; // space separator
 			$nav_element_directives .= 'data-wp-init="callbacks.initAutoNav"';
 		}
