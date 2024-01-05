@@ -67,7 +67,7 @@ function defaultRequestToExternal( request ) {
  */
 function defaultRequestToExternalModule( request ) {
 	if ( request === '@wordpress/interactivity' ) {
-		return request;
+		return true;
 	}
 }
 
