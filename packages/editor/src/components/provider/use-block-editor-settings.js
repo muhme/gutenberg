@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { Platform, useMemo, useCallback } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { resolveSelect, useDispatch, useSelect } from '@wordpress/data';
 import {
 	store as coreStore,
 	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
@@ -214,6 +214,10 @@ function useBlockEditorSettings( settings, postType, postId ) {
 		[ saveEntityRecord, userCanCreatePages ]
 	);
 
+	const syncGetEntityRecord = useCallback( async ( ...args ) => {
+		return await resolveSelect( coreStore ).getEntityRecord( ...args );
+	}, [] );
+
 	return useMemo(
 		() => ( {
 			...Object.fromEntries(
@@ -254,6 +258,7 @@ function useBlockEditorSettings( settings, postType, postId ) {
 					: settings.template,
 			__experimentalSetIsInserterOpened: setIsInserterOpened,
 			__experimentalGetPostLinkProps: getPostLinkProps,
+			__experimentalSyncGetEntityRecord: syncGetEntityRecord,
 		} ),
 		[
 			allowRightClickOverrides,
@@ -273,6 +278,7 @@ function useBlockEditorSettings( settings, postType, postId ) {
 			postType,
 			setIsInserterOpened,
 			getPostLinkProps,
+			syncGetEntityRecord,
 		]
 	);
 }
