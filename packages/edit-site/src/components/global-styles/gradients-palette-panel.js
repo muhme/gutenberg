@@ -75,6 +75,7 @@ export default function GradientPalettePanel( { name } ) {
 		>
 			{ !! themeGradients && !! themeGradients.length && (
 				<PaletteEdit
+					isGradient
 					canReset={ themeGradients !== baseThemeGradients }
 					canOnlyChangeValues
 					gradients={ themeGradients }
@@ -88,6 +89,7 @@ export default function GradientPalettePanel( { name } ) {
 				!! defaultGradients.length &&
 				!! defaultPaletteEnabled && (
 					<PaletteEdit
+						isGradient
 						canReset={ defaultGradients !== baseDefaultGradients }
 						canOnlyChangeValues
 						gradients={ defaultGradients }
@@ -98,6 +100,7 @@ export default function GradientPalettePanel( { name } ) {
 					/>
 				) }
 			<PaletteEdit
+				isGradient
 				gradients={ customGradients }
 				onChange={ setCustomGradients }
 				paletteLabel={ __( 'Custom' ) }

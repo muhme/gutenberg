@@ -334,7 +334,8 @@ function PaletteEditListView< T extends Color | Gradient >( {
 	);
 }
 
-const EMPTY_ARRAY: Color[] = [];
+const EMPTY_COLOR_ARRAY: Color[] = [];
+const EMPTY_GRADIENT_ARRAY: Gradient[] = [];
 
 /**
  * Allows editing a palette of colors or gradients.
@@ -357,8 +358,9 @@ const EMPTY_ARRAY: Color[] = [];
  * ```
  */
 export function PaletteEdit( {
-	gradients,
-	colors = EMPTY_ARRAY,
+	gradients = EMPTY_GRADIENT_ARRAY,
+	colors = EMPTY_COLOR_ARRAY,
+	isGradient: _isGradient = false,
 	onChange,
 	paletteLabel,
 	paletteLabelHeadingLevel = 2,
@@ -368,7 +370,7 @@ export function PaletteEdit( {
 	slugPrefix = '',
 	popoverProps,
 }: PaletteEditProps ) {
-	const isGradient = !! gradients;
+	const isGradient = _isGradient || !! gradients.length;
 	const elements = isGradient ? gradients : colors;
 	const [ isEditing, setIsEditing ] = useState( false );
 	const [ editingElement, setEditingElement ] = useState<
@@ -436,7 +438,7 @@ export function PaletteEdit( {
 									slugPrefix
 								);
 
-								if ( !! gradients ) {
+								if ( isGradient ) {
 									onChange( [
 										...gradients,
 										{

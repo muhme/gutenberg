@@ -26,22 +26,22 @@ const meta: Meta< typeof PaletteEdit > = {
 export default meta;
 
 const Template: StoryFn< typeof PaletteEdit > = ( args ) => {
-	const { colors, gradients, onChange, ...props } = args;
-	const [ value, setValue ] = useState( gradients || colors );
+	const { colors, gradients, isGradient, onChange, ...props } = args;
+	const [ value, setValue ] = useState( isGradient ? gradients : colors );
 
 	return (
 		<PaletteEdit
-			{ ...( gradients
+			{ ...( isGradient
 				? {
 						gradients: value as Gradient[],
-						onChange: ( newValue?: Gradient[] ) => {
+						onChange: ( newValue ) => {
 							setValue( newValue );
 							onChange( newValue );
 						},
 				  }
 				: {
 						colors: value as Color[],
-						onChange: ( newValue?: Color[] ) => {
+						onChange: ( newValue ) => {
 							setValue( newValue );
 							onChange( newValue );
 						},
@@ -67,6 +67,7 @@ Default.args = {
 
 export const Gradients = Template.bind( {} );
 Gradients.args = {
+	isGradient: true,
 	gradients: [
 		{
 			gradient:

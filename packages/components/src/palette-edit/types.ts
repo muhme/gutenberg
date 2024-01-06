@@ -25,7 +25,15 @@ export type Gradient = {
 
 export type PaletteElement = Color | Gradient;
 
-export type BasePaletteEdit = {
+export type PaletteEditProps = {
+	/**
+	 * The colors in the palette.
+	 */
+	colors?: Color[];
+	/**
+	 * The gradients in the palette.
+	 */
+	gradients?: Gradient[];
 	/**
 	 * Whether the user can only change the color or gradient values.
 	 * If true, they cannot change names or delete values.
@@ -66,34 +74,17 @@ export type BasePaletteEdit = {
 		React.ComponentPropsWithoutRef< typeof Popover >,
 		'children'
 	>;
-};
-
-type PaletteEditColors = {
 	/**
-	 * The colors in the palette.
+	 * Whether to use the gradient palette.
+	 *
+	 * @default false
 	 */
-	colors?: Color[];
-	/**
-	 * Runs on changing the value.
-	 */
-	onChange: ( values?: Color[] ) => void;
-	gradients?: never;
-};
-
-type PaletteEditGradients = {
-	/**
-	 * The gradients in the palette.
-	 */
-	gradients: Gradient[];
+	isGradient?: boolean;
 	/**
 	 * Runs on changing the value.
 	 */
-	onChange: ( values?: Gradient[] ) => void;
-	colors?: never;
+	onChange: ( values?: Color[] | Gradient[] ) => void;
 };
-
-export type PaletteEditProps = BasePaletteEdit &
-	( PaletteEditColors | PaletteEditGradients );
 
 type EditingElement = number | null;
 
